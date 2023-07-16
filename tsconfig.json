@@ -1,11 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "module": "es2022",
+    "target": "ESNext",
+    "module": "commonJS",
     "outDir": "dist",
     "sourceMap": true,
     "experimentalDecorators": true,
-    "strict": true
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "ESNext",
+      "ESNext.AsyncIterable"
+    ]
   },
   "include": [
     "src/**/*"
