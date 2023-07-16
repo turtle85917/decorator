@@ -1,12 +1,16 @@
 @ClassDecorator
 class TestClass{
-  @Method("Hello, there.")
+  @MethodDecorator("Hello, there.")
   public say():void{
     console.log("Hi.");
   };
 
   public test():void{
     console.log("Hello, World!");
+  }
+
+  public d(@ParameterDecorator param:string):void{
+    console.log(param);
   }
 }
 
@@ -16,14 +20,19 @@ function ClassDecorator<T extends {new(...args:any[]):{}}>(constructor:T):T{
   };
 }
 
-function Method(content:string):MethodDecorator{
-  return (target:any, key:string|symbol, descriptor:PropertyDescriptor):void=>{
+function MethodDecorator(content:string):(...args: any)=>void{
+  return (target:any, key:string, descriptor:PropertyDescriptor):void=>{
     descriptor.value = function():void{
       console.log(content);
     };
   };
 }
 
+function ParameterDecorator(target:any, key:string, index:number):void{
+  console.log(`${key} : ${index}`);
+}
+
 const testClass = new TestClass();
 testClass.test();
 testClass.say();
+testClass.d("Hello.");
