@@ -1,7 +1,7 @@
 @ClassDecorator
 class TestClass{
-  @MethodDecorator
-  public deco():void{
+  @Method("Hello, there.")
+  public say():void{
     console.log("Hi.");
   };
 
@@ -16,12 +16,14 @@ function ClassDecorator<T extends {new(...args:any[]):{}}>(constructor:T):T{
   };
 }
 
-function MethodDecorator(target:TestClass, key:string, descriptor:PropertyDescriptor):void{
-  descriptor.value = function(){
-    console.log("Hmm...");
+function Method(content:string):MethodDecorator{
+  return (target:any, key:string|symbol, descriptor:PropertyDescriptor):void=>{
+    descriptor.value = function():void{
+      console.log(content);
+    };
   };
 }
 
 const testClass = new TestClass();
 testClass.test();
-testClass.deco();
+testClass.say();
